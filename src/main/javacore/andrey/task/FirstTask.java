@@ -19,8 +19,7 @@ public class FirstTask {
             if (set.add(i) == false)
                 set2.add(i);
         }
-        System.out.println(set2);
-        return set2;
+                return set2;
     }
 }
 

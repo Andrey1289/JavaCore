@@ -1,32 +1,34 @@
 package main.javacore.andrey.task;
 
 import java.util.ArrayDeque;
+import java.util.Stack;
+
 
 public class SecondTask {
     public static void main(String[] args) {
-        String in = "({}[]())";
-        validateBrackets(in);
+        String text = "()[]{}";
+        System.out.println(validateBrackets(text));
+
     }
     public static boolean validateBrackets(String input) {
-        boolean res = true;
-        byte[] b = input.getBytes();
-        ArrayDeque<Byte> arrayDeque = new ArrayDeque<Byte>();
-        for (Byte c : b) {
-            arrayDeque.push(c);
-        }
-        if (arrayDeque.size() % 2 == 0) {
-            while (arrayDeque.peek() != null) {
-                if (arrayDeque.pollFirst() - arrayDeque.pollLast() > 5) {
-                    res = false;
-                    break;
-                }
+        if (input.equals(""))
+            return  false;
+        Stack<Character> stack = new Stack<Character>();
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+            if (ch == '(' || ch == '{' || ch == '[')
+                stack.push(ch);
+            else if (ch == ']') {
+                if (stack.empty() || stack.pop() != '[')
+                    return false;
+            } else if (ch == '}') {
+                if (stack.empty() || stack.pop() != '{')
+                    return false;
+            } else if (ch == ')') {
+                if (stack.empty() || stack.pop() != '(')
+                    return false;
             }
-            if (res == true) {
-                System.out.println("Коректно");
-            } else
-                System.out.println("Не коректно");
-        } else System.out.println("Не коректно");
-
+        }
         return true;
     }
 }
